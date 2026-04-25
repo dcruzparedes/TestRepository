@@ -1,8 +1,43 @@
 <html>
-    <head>
-        <title>Calculadora</title>
-    </head>
-    <body>
-        Aqui va una Calculadora
-    </body>
+<head>
+  <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+</head>
+<body>
+<div class="calculator">
+  <div class="display-frame">
+    <div id="display" class="screen">0</div>
+  </div>
+
+  <div class="keys-grid">
+    <button class="key key--red" onclick="clearOne()">⌫ </button>
+    <button class="key key--red" onclick="clearDisplay()">AC</button>
+    <button class="key key--orange" onclick="appendToDisplay('(')">(</button>
+    <button class="key key--orange" onclick="appendToDisplay(')')">)</button>
+    <button class="key key--orange" onclick="appendToDisplay('^')">^</button>
+
+    <button class="key" onclick="appendToDisplay('7')">7</button>
+    <button class="key" onclick="appendToDisplay('8')">8</button>
+    <button class="key" onclick="appendToDisplay('9')">9</button>
+    <button class="key key--orange" onclick="appendToDisplay('/')">/</button>
+    <button class="key key--orange" onclick="appendToDisplay('*')">*</button>
+
+    <button class="key" onclick="appendToDisplay('4')">4</button>
+    <button class="key" onclick="appendToDisplay('5')">5</button>
+    <button class="key" onclick="appendToDisplay('6')">6</button>
+    <button class="key key--orange" onclick="appendToDisplay('-')">-</button>
+    <button class="key key--orange" onclick="appendToDisplay('+')">+</button>
+
+    <button class="key" onclick="appendToDisplay('1')">1</button>
+    <button class="key" onclick="appendToDisplay('2')">2</button>
+    <button class="key" onclick="appendToDisplay('3')">3</button>
+    <button class="key" onclick="appendToDisplay('0')">0</button>
+    <button class="key" onclick="appendToDisplay('.')">.</button>
+
+    <div class="equal-span">
+      <button class="key key--red wide">=</button>
+    </div>
+  </div>
+    </div>
+  </div>
 </html>
