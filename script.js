@@ -53,8 +53,22 @@ function calculate() {
 
 function evaluate(expr) {
   // Logica de cada operacion aqui
+  expr = resolverParentesis(expr);
   return expr;
 }
+
+function resolverParentesis(expr) {
+  while (expr.includes("(")) {
+    const inicio = expr.lastIndexOf("(");
+    const fin = expr.indexOf(")", inicio);
+    const subExpresion = expr.substring(inicio + 1, fin);
+    console.log("Subexpresión:", subExpresion);
+    expr = expr.substring(0, inicio) + evaluate(subExpresion) + expr.substring(fin + 1);
+  }
+  return expr;
+}
+
+
 
 
 function scrollDisplayToEnd(display) {
