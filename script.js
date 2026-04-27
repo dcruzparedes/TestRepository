@@ -106,11 +106,12 @@ function resolverDivision(expr) {
 }
 
 function solveAddition(expr) {
-  const additionRegex =/(-?\d+\.?\d*)\+(-?\d+\.?\d*)/;
+  const additionRegex = /(-?\d+\.?\d*)\+(-?\d+\.?\d*)/;
 
   while (additionRegex.test(expr)) {
-     expr = expr.replace(additionRegex, function (_, a, b) {
-      return (parseFloat(a) + parseFloat(b));
+    expr = expr.replace(additionRegex, function (_, a, b) {
+      return parseFloat(a) + parseFloat(b);
+    });
   }
   return expr;
 }
