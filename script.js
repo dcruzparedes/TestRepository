@@ -55,9 +55,11 @@ function evaluate(expr) {
   // Logica de cada operacion aqui
   expr = resolverParentesis(expr);
   expr = resolverExponente(expr);
-
+  expr = solveMultiplication(expr);
+  
   return expr;
 }
+
 
 function resolverParentesis(expr) {
   while (expr.includes("(")) {
@@ -77,6 +79,15 @@ function resolverExponente(expr) {
         });
     }
     return expr;
+}
+
+function solveMultiplication(expr){
+  const multiplicationRegex = /(-?\d+\.?\d*)\*(-?\d+\.?\d*)/;
+
+  while (multiplicationRegex.test(expr)) {
+    expr = expr.replace(multiplicationRegex, function (_, a, b) {
+      return (parseFloat(a) * parseFloat(b));
+    });
 }
 
 
