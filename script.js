@@ -41,10 +41,10 @@ function evaluate(expr) {
 }
 
 function resolverResta(expr) {
-  while (/[\d.]+-[\d.]+/.test(expr)) {
-    expr = expr.replace(/([\d.]+)-([\d.]+)/, function (_, a, b) {
-      return parseFloat(a) - parseFloat(b);
-    });
-  }
-  return expr;
+    while (/(-?[\d.]+)-(-?[\d.]+)/.test(expr)) {
+        expr = expr.replace(/(-?[\d.]+)-(-?[\d.]+)/, function(_, a, b) {
+            return parseFloat(a) - parseFloat(b);
+        });
+    }
+    return expr;
 }
