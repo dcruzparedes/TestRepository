@@ -58,6 +58,7 @@ function evaluate(expr) {
   expr = solveMultiplication(expr);
   expr = resolverDivision(expr);
   expr = solveAddition(expr);
+  expr = resolverResta(expr);
   return expr;
 }
 
@@ -116,6 +117,15 @@ function solveAddition(expr) {
   return expr;
 }
 
+function resolverResta(expr) {
+    while (/(-?[\d.]+)-(-?[\d.]+)/.test(expr)) {
+        expr = expr.replace(/(-?[\d.]+)-(-?[\d.]+)/, function(_, a, b) {
+            return parseFloat(a) - parseFloat(b);
+        });
+    }
+    return expr;
+}
+ 
 function scrollDisplayToEnd(display) {
   requestAnimationFrame(() => {
     display.scrollLeft = display.scrollWidth;
