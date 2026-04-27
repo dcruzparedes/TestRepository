@@ -36,5 +36,17 @@ function calculate() {
 
 function evaluate(expr) {
   // Logica de cada operacion aqui
+  expr = solveAddition(expr);
+  return expr;
+}
+
+function solveAddition(expr) {
+  const additionRegex =/(-?\d+\.?\d*)\+(-?\d+\.?\d*)/;
+
+  while (additionRegex.test(expr)) {
+     expr = expr.replace(additionRegex, function (_, a, b) {
+      return (parseFloat(a) + parseFloat(b));
+    });
+  }
   return expr;
 }
