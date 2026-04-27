@@ -41,12 +41,10 @@ function evaluate(expr) {
 }
 
 function resolverExponente(expr) {
-  while (expr.includes("^")) {
-    const index = expr.indexOf("^");
-    const left = expr.substring(0, index);
-    const right = expr.substring(index + 1);
-    expr = String(Math.pow(parseFloat(left), parseFloat(right)));
-    console.log(expr);
+  while (/[\d.]+\^[\d.]+/.test(expr)) {
+    expr = expr.replace(/([\d.]+)\^([\d.]+)/, function (_, base, exp) {
+      return Math.pow(parseFloat(base), parseFloat(exp));
+    });
   }
   return expr;
 }
