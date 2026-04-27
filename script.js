@@ -37,7 +37,6 @@ function calculate() {
 function evaluate(expr) {
   // Logica de cada operacion aqui
   expr = resolverParentesis(expr);
-  expr = resolverSuma(expr);
   return expr;
 }
 
@@ -52,15 +51,5 @@ function resolverParentesis(expr) {
   return expr;
 }
 
-function resolverSuma(expr) {
-  expr = String(expr);
 
-  while (expr.includes("+")) {
-    const index = expr.indexOf("+");
-    const left = expr.substring(0, index);
-    const right = expr.substring(index + 1);
-    expr = String(parseFloat(left) + parseFloat(right));
-  }
-  return expr;
-}
 
