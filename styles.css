@@ -29,18 +29,32 @@
     background: linear-gradient(to bottom, #ffe0cc, #ffb380);
     height: 60px;
     border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    display: block;
     padding-inline: 15px;
+    line-height: 60px;
+    text-align: right;
     font-size: 2.5rem;
     color: #444;
     font-family: 'Courier New', Courier, monospace; 
     border: 2px solid rgba(0,0,0,0.05);
     width: 100%;          
+    min-width: 0;
     box-sizing: border-box; 
-    overflow: hidden;     
+    overflow-x: scroll;
+    overflow-y: hidden;
     white-space: nowrap;   
+    display: block;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+  }
+
+  .screen::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .screen::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 999px;
   }
 
   .keys-grid {
