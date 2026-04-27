@@ -6,11 +6,14 @@ function appendToDisplay(input) {
   } else {
     display.innerText += input;
   }
+
+  scrollDisplayToEnd(display);
 }
 
 function clearDisplay() {
   const display = document.getElementById("display");
   display.innerText = "0";
+  scrollDisplayToEnd(display);
 }
 
 function clearOne() {
@@ -20,6 +23,8 @@ function clearOne() {
   } else {
     display.innerText = "0";
   }
+
+  scrollDisplayToEnd(display);
 }
 
 // Logica
@@ -32,9 +37,19 @@ function calculate() {
   } catch (e) {
     display.innerText = "Error";
   }
+
+  scrollDisplayToEnd(display);
 }
 
 function evaluate(expr) {
   // Logica de cada operacion aqui
+  expr = resolverResta(expr);
   return expr;
+}
+
+
+function scrollDisplayToEnd(display) {
+  requestAnimationFrame(() => {
+    display.scrollLeft = display.scrollWidth;
+  });
 }
