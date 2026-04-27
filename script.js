@@ -54,6 +54,8 @@ function calculate() {
 function evaluate(expr) {
   // Logica de cada operacion aqui
   expr = resolverParentesis(expr);
+  expr = resolverExponente(expr);
+
   return expr;
 }
 
@@ -68,7 +70,14 @@ function resolverParentesis(expr) {
   return expr;
 }
 
-
+function resolverExponente(expr) {
+    while (/(-?[\d.]+)\^(-?[\d.]+)/.test(expr)) {
+        expr = expr.replace(/(-?[\d.]+)\^(-?[\d.]+)/, function(_, base, exp) {
+            return Math.pow(parseFloat(base), parseFloat(exp));
+        });
+    }
+    return expr;
+}
 
 
 function scrollDisplayToEnd(display) {
