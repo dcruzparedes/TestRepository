@@ -41,8 +41,8 @@ function evaluate(expr) {
 }
 
 function resolverDivision(expr) {
-    while (/[\d.]+\/[\d.]+/.test(expr)) {
-        expr = expr.replace(/([\d.]+)\/([\d.]+)/, function(_, a, b) {
+    while (/(-?[\d.]+)\/(-?[\d.]+)/.test(expr)) {
+        expr = expr.replace(/(-?[\d.]+)\/(-?[\d.]+)/, function(_, a, b) {
             if (parseFloat(b) === 0) throw new Error('División entre cero');
             return parseFloat(a) / parseFloat(b);
         });
