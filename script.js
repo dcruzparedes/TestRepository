@@ -41,10 +41,10 @@ function evaluate(expr) {
 }
 
 function resolverExponente(expr) {
-  while (/[\d.]+\^[\d.]+/.test(expr)) {
-    expr = expr.replace(/([\d.]+)\^([\d.]+)/, function (_, base, exp) {
-      return Math.pow(parseFloat(base), parseFloat(exp));
-    });
-  }
-  return expr;
+    while (/(-?[\d.]+)\^(-?[\d.]+)/.test(expr)) {
+        expr = expr.replace(/(-?[\d.]+)\^(-?[\d.]+)/, function(_, base, exp) {
+            return Math.pow(parseFloat(base), parseFloat(exp));
+        });
+    }
+    return expr;
 }
