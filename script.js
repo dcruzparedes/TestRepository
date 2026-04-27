@@ -56,10 +56,9 @@ function evaluate(expr) {
   expr = resolverParentesis(expr);
   expr = resolverExponente(expr);
   expr = solveMultiplication(expr);
-  
+
   return expr;
 }
-
 
 function resolverParentesis(expr) {
   while (expr.includes("(")) {
@@ -67,29 +66,33 @@ function resolverParentesis(expr) {
     const fin = expr.indexOf(")", inicio);
     const subExpresion = expr.substring(inicio + 1, fin);
     console.log("Subexpresión:", subExpresion);
-    expr = expr.substring(0, inicio) + evaluate(subExpresion) + expr.substring(fin + 1);
+    expr =
+      expr.substring(0, inicio) +
+      evaluate(subExpresion) +
+      expr.substring(fin + 1);
   }
   return expr;
 }
 
 function resolverExponente(expr) {
-    while (/(-?[\d.]+)\^(-?[\d.]+)/.test(expr)) {
-        expr = expr.replace(/(-?[\d.]+)\^(-?[\d.]+)/, function(_, base, exp) {
-            return Math.pow(parseFloat(base), parseFloat(exp));
-        });
-    }
-    return expr;
+  while (/(-?[\d.]+)\^(-?[\d.]+)/.test(expr)) {
+    expr = expr.replace(/(-?[\d.]+)\^(-?[\d.]+)/, function (_, base, exp) {
+      return Math.pow(parseFloat(base), parseFloat(exp));
+    });
+  }
+  return expr;
 }
 
-function solveMultiplication(expr){
+function solveMultiplication(expr) {
   const multiplicationRegex = /(-?\d+\.?\d*)\*(-?\d+\.?\d*)/;
 
   while (multiplicationRegex.test(expr)) {
     expr = expr.replace(multiplicationRegex, function (_, a, b) {
-      return (parseFloat(a) * parseFloat(b));
+      return parseFloat(a) * parseFloat(b);
     });
+  }
+  return expr;
 }
-
 
 function scrollDisplayToEnd(display) {
   requestAnimationFrame(() => {
