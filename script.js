@@ -36,5 +36,15 @@ function calculate() {
 
 function evaluate(expr) {
   // Logica de cada operacion aqui
+  expr = resolverResta(expr);
+  return expr;
+}
+
+function resolverResta(expr) {
+  while (/[\d.]+-[\d.]+/.test(expr)) {
+    expr = expr.replace(/([\d.]+)-([\d.]+)/, function (_, a, b) {
+      return parseFloat(a) - parseFloat(b);
+    });
+  }
   return expr;
 }
