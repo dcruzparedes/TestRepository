@@ -41,17 +41,11 @@ function evaluate(expr) {
 }
 
 function resolverDivision(expr) {
-  while (expr.includes("/")) {
-    const divisionIndex = expr.indexOf("/");
-    const left = expr.slice(0, divisionIndex);
-    const right = expr.slice(divisionIndex + 1);
-    const leftNum = parseFloat(left);
-    const rightNum = parseFloat(right);
-    if (rightNum === 0) {
-      throw new Error("Division by zero");
+    while (/[\d.]+\/[\d.]+/.test(expr)) {
+        expr = expr.replace(/([\d.]+)\/([\d.]+)/, function(_, a, b) {
+            if (parseFloat(b) === 0) throw new Error('División entre cero');
+            return parseFloat(a) / parseFloat(b);
+        });
     }
-    const result = leftNum / rightNum;
-    expr = result.toString();
-  }
-  return expr;
+    return expr;
 }
