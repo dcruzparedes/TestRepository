@@ -6,9 +6,9 @@ function appendToDisplay(input) {
   const display = document.getElementById("display");
 
   if (display.innerText == "0") {
-    display.innerText = input;
+    display.innerText = input === "." ? "0." : input;
   } else {
-    display.innerText += input;
+    display.innerText += input; 
   }
 
   scrollDisplayToEnd(display);
@@ -42,6 +42,11 @@ function calculate() {
   clickSound.play();
   const display = document.getElementById("display");
   try {
+    const validation = validateExpression(display.innerText);
+    if (!validation.valid) {
+      throw new Error(validation.message);
+    }
+
     const result = evaluate(display.innerText);
     display.innerText = result;
   } catch (e) {
@@ -60,6 +65,132 @@ function evaluate(expr) {
   expr = solveAddition(expr);
   expr = resolverResta(expr);
   return expr;
+}
+
+function validateExpression(expr) {
+  const syntaxErrorMessage = "syntax error";
+  const compactExpr = expr.replace(/\s+/g, "");
+
+  if (!compactExpr) {
+    return { valid: false, message: syntaxErrorMessage };
+  }
+
+  if (!/^[0-9+\-*/^().]+$/.test(compactExpr)) {
+    return {
+      valid: false,
+      message: syntaxErrorMessage,
+    };
+  }
+
+  let balance = 0;
+  let previousType = "start";
+  let currentNumberHasDot = false;
+
+  for (let index = 0; index < compactExpr.length; index++) {
+    const character = compactExpr[index];
+
+    if (/\d|\./.test(character)) {
+      if (previousType === ")") {
+        return {
+          valid: false,
+          message: syntaxErrorMessage,
+        };
+      }
+
+      if (previousType !== "number") {
+        currentNumberHasDot = false;
+      }
+
+      if (character === ".") {
+        if (currentNumberHasDot) {
+          return { valid: false, message: syntaxErrorMessage };
+        }
+
+        currentNumberHasDot = true;
+      }
+
+      previousType = "number";
+      continue;
+    }
+
+    if (character === "(") {
+      if (previousType === "number" || previousType === ")") {
+        return { valid: false, message: syntaxErrorMessage };
+      }
+
+      balance++;
+      previousType = "(";
+      currentNumberHasDot = false;
+      continue;
+    }
+
+    if (character === ")") {
+      if (balance === 0) {
+        return {
+          valid: false,
+          message: syntaxErrorMessage,
+        };
+      }
+
+      if (
+        previousType === "start" ||
+        previousType === "operator" ||
+        previousType === "("
+      ) {
+        return {
+          valid: false,
+          message: syntaxErrorMessage,
+        };
+      }
+
+      balance--;
+      previousType = ")";
+      currentNumberHasDot = false;
+      continue;
+    }
+
+    if (isOperator(character)) {
+      if (
+        previousType === "start" ||
+        previousType === "operator" ||
+        previousType === "("
+      ) {
+        if (character !== "-") {
+          return {
+            valid: false,
+            message: syntaxErrorMessage,
+          };
+        }
+
+        previousType = "operator";
+        currentNumberHasDot = false;
+        continue;
+      }
+
+      if (previousType === ")") {
+        previousType = "operator";
+        currentNumberHasDot = false;
+        continue;
+      }
+
+      previousType = "operator";
+      currentNumberHasDot = false;
+    }
+  }
+
+  if (balance !== 0) {
+    return { valid: false, message: syntaxErrorMessage };
+  }
+
+  if (previousType === "operator") {
+    return { valid: false, message: syntaxErrorMessage };
+  }
+
+  return { valid: true, message: "" };
+}
+
+function isOperator(character) {
+  return ["+", "-", "*", "/", "^"].includes(character);
 }
 
 function resolverParentesis(expr) {
@@ -118,14 +249,14 @@ function solveAddition(expr) {
 }
 
 function resolverResta(expr) {
-    while (/(-?[\d.]+)-(-?[\d.]+)/.test(expr)) {
-        expr = expr.replace(/(-?[\d.]+)-(-?[\d.]+)/, function(_, a, b) {
-            return parseFloat(a) - parseFloat(b);
-        });
-    }
-    return expr;
+  while (/(-?[\d.]+)-(-?[\d.]+)/.test(expr)) {
+    expr = expr.replace(/(-?[\d.]+)-(-?[\d.]+)/, function (_, a, b) {
+      return parseFloat(a) - parseFloat(b);
+    });
+  }
+  return expr;
 }
- 
+
 function scrollDisplayToEnd(display) {
   requestAnimationFrame(() => {
     display.scrollLeft = display.scrollWidth;
