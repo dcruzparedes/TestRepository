@@ -30,11 +30,28 @@ function calculate() {
     const result = evaluate(display.innerText);
     display.innerText = result;
   } catch (e) {
-    display.innerText = "Error";
+    display.innerText = e.message || "Error";
   }
 }
 
 function evaluate(expr) {
   // Logica de cada operacion aqui
+  expr = resolverDivision(expr);
+  return expr;
+}
+
+function resolverDivision(expr) {
+  while (expr.includes("/")) {
+    const divisionIndex = expr.indexOf("/");
+    const left = expr.slice(0, divisionIndex);
+    const right = expr.slice(divisionIndex + 1);
+    const leftNum = parseFloat(left);
+    const rightNum = parseFloat(right);
+    if (rightNum === 0) {
+      throw new Error("Division by zero");
+    }
+    const result = leftNum / rightNum;
+    expr = result.toString();
+  }
   return expr;
 }
