@@ -36,5 +36,17 @@ function calculate() {
 
 function evaluate(expr) {
   // Logica de cada operacion aqui
+  expr = resolverExponente(expr);
+  return expr;
+}
+
+function resolverExponente(expr) {
+  while (expr.includes("^")) {
+    const index = expr.indexOf("^");
+    const left = expr.substring(0, index);
+    const right = expr.substring(index + 1);
+    expr = String(Math.pow(parseFloat(left), parseFloat(right)));
+    console.log(expr);
+  }
   return expr;
 }
