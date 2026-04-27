@@ -57,6 +57,7 @@ function evaluate(expr) {
   expr = resolverExponente(expr);
   expr = solveMultiplication(expr);
   expr = resolverDivision(expr);
+  expr = solveAddition(expr);
   return expr;
 }
 
@@ -100,6 +101,16 @@ function resolverDivision(expr) {
       if (parseFloat(b) === 0) throw new Error("Cannot divide by zero");
       return parseFloat(a) / parseFloat(b);
     });
+  }
+  return expr;
+}
+
+function solveAddition(expr) {
+  const additionRegex =/(-?\d+\.?\d*)\+(-?\d+\.?\d*)/;
+
+  while (additionRegex.test(expr)) {
+     expr = expr.replace(additionRegex, function (_, a, b) {
+      return (parseFloat(a) + parseFloat(b));
   }
   return expr;
 }
