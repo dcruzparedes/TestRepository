@@ -45,7 +45,7 @@ function calculate() {
     const result = evaluate(display.innerText);
     display.innerText = result;
   } catch (e) {
-    display.innerText = "Error";
+    display.innerText = e.message || "Error";
   }
 
   scrollDisplayToEnd(display);
@@ -53,12 +53,13 @@ function calculate() {
 
 function evaluate(expr) {
   // Logica de cada operacion aqui
-  expr = resolverParentesis(expr);
+   expr = resolverParentesis(expr);
   expr = resolverExponente(expr);
   expr = solveMultiplication(expr);
-
+  expr = resolverDivision(expr);
   return expr;
 }
+
 
 function resolverParentesis(expr) {
   while (expr.includes("(")) {
@@ -92,6 +93,17 @@ function solveMultiplication(expr) {
     });
   }
   return expr;
+}
+
+function resolverDivision(expr) {
+    while (/(-?[\d.]+)\/(-?[\d.]+)/.test(expr)) {
+        expr = expr.replace(/(-?[\d.]+)\/(-?[\d.]+)/, function(_, a, b) {
+            if (parseFloat(b) === 0) throw new Error('División entre cero');
+            return parseFloat(a) / parseFloat(b);
+        });
+    }
+    return expr;
+}
 }
 
 function scrollDisplayToEnd(display) {
