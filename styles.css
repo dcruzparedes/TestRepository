@@ -1,102 +1,123 @@
-  body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0ede9; 
-    margin: 0;
-  }
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0ede9;
+  margin: 0;
+}
 
-  .calculator {
-    width: 300px;
-    background-color: #fdfdfe;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0px 10px 25px rgba(0,0,0,0.1), inset 0 0 2px white;
-    max-inline-size: 22rem;
-    margin-inline: auto;
-  }
+.calculator {
+  width: 300px;
+  background-color: #fdfdfe;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow:
+    0px 10px 25px rgba(0, 0, 0, 0.1),
+    inset 0 0 2px white;
+  box-shadow: 0 4px #ddd;
+  box-shadow: 10px 10px #ddd;
+  max-inline-size: 22rem;
+  margin-inline: auto;
+}
 
-  .display-frame {
-    background-color: #c5cbe3; 
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    box-shadow: inset 0px 2px 5px rgba(0,0,0,0.1);
-  }
+.display-frame {
+  background-color: #c5cbe3;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-  .screen {
-    background: linear-gradient(to bottom, #ffe0cc, #ffb380);
-    height: 60px;
-    border-radius: 5px;
-    display: block;
-    padding-inline: 15px;
-    line-height: 60px;
-    text-align: right;
-    font-size: 2.5rem;
-    color: #444;
-    font-family: 'Courier New', Courier, monospace; 
-    border: 2px solid rgba(0,0,0,0.05);
-    width: 100%;          
-    min-width: 0;
-    box-sizing: border-box; 
-    overflow-x: scroll;
-    overflow-y: hidden;
-    white-space: nowrap;   
-    display: block;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
-  }
+.screen {
+  background: linear-gradient(to bottom, #ffe0cc, #ffb380);
+  height: 60px;
+  border-radius: 5px;
+  display: block;
+  padding-inline: 15px;
+  line-height: 60px;
+  text-align: right;
+  font-size: 2.5rem;
+  color: #444;
+  font-family: "Courier New", Courier, monospace;
+  border: 2px solid rgba(0, 0, 0, 0.05);
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  display: block;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+}
 
-  .screen::-webkit-scrollbar {
-    height: 8px;
-  }
+.screen::-webkit-scrollbar {
+  height: 8px;
+}
 
-  .screen::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 999px;
-  }
+.screen::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 999px;
+}
 
-  .keys-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-  }
+.keys-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
 
-  .key {
-    background: #fdfdfe;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding-block: 15px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-    color: #555;
-    box-shadow: 0 4px #ddd;
-    transition: all 0.1s;
-  }
+.key {
+  background: #fdfdfe;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding-block: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #555;
+  box-shadow: 0 4px #ddd;
+  transition: all 0.1s;
+}
 
-  .key:active {
-    box-shadow: 0 1px #ccc;
-    transform: translateY(3px);
-  }
+.key:active {
+  box-shadow: 0 1px #ccc;
+  transform: translateY(3px);
+}
 
-  .key--orange {
-    background-color: #ffd8b8;
-    color: #c86;
-    box-shadow: 0 4px #e6c2a5;
-  }
+.key--orange {
+  background-color: #ffd8b8;
+  color: #c86;
+  box-shadow: 0 4px #e6c2a5;
+}
 
-  .key--red {
-    background-color: #f7b7b7;
-    color: #a55;
-    box-shadow: 0 4px #d9a3a3;
-  }
+.key--red {
+  background-color: #f7b7b7;
+  color: #a55;
+  box-shadow: 0 4px #d9a3a3;
+}
 
-  .equal-span {
-    grid-column: span 5;
-  }
+.equal-span {
+  grid-column: span 5;
+}
 
-  .wide {
-    width: 100%;
-  }
+.wide {
+  width: 100%;
+}
+
+.video-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+#bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
